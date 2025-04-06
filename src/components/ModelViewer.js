@@ -1,7 +1,7 @@
 'use client';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, OrbitControls, Environment, Stage } from '@react-three/drei';
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useEffect } from 'react';
 
 function Model({ modelPath, isThumb }) {
   const { scene } = useGLTF(modelPath);
@@ -9,14 +9,21 @@ function Model({ modelPath, isThumb }) {
 
   useFrame(() => {
     if (isThumb && ref.current) {
-      ref.current.rotation.y += 0.01;
+      ref.current.rotation.y += 0.001;
     }
   });
 
   return <primitive object={scene} ref={ref} />;
 }
 
-export default function ModelViewer({ modelPath, isThumb = false }) {
+const ModelViewer = ({ modelPath, isThumb = false, onLoad }) => {
+  useEffect(() => {
+    if (onLoad) {
+      // Call onLoad when the model is ready
+      onLoad();
+    }
+  }, []);
+
   const canvasStyle = isThumb ? {
     width: '100%',
     aspectRatio: '1/1',
@@ -30,7 +37,7 @@ export default function ModelViewer({ modelPath, isThumb = false }) {
   return (
     <div style={canvasStyle}>
       <Canvas
-        camera={{ position: [15, 15, 15], fov: 45 }}
+        camera={{ position: [3, 3, 3], fov: 45 }}
         style={{ background: 'transparent' }}
       >
         <Suspense fallback={null}>
@@ -43,4 +50,6 @@ export default function ModelViewer({ modelPath, isThumb = false }) {
       </Canvas>
     </div>
   );
-}
+};
+
+export default ModelViewer;

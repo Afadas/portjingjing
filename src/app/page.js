@@ -21,6 +21,7 @@ export default function Home() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const projectCardRef = useRef(null);
   const containerRef = useRef(null);
+  const [loadedModels, setLoadedModels] = useState({});
 
   useEffect(() => {
     const hasAnimated = localStorage.getItem('hasAnimated') === 'true';
@@ -67,6 +68,13 @@ export default function Home() {
 
   const handleCloseClick = () => {
     setExpandedProject(null);
+  };
+
+  const handleModelLoad = (projectId) => {
+    setLoadedModels(prev => ({
+      ...prev,
+      [projectId]: true
+    }));
   };
 
   const projects = [
@@ -249,7 +257,26 @@ export default function Home() {
                 {(project.modelPath || project.imagePath) && !expandedProject && (
                   <div className="project-thumbnail">
                     {project.modelPath ? (
-                      <ModelViewer modelPath={project.modelPath} isThumb={hoveredProject === project.id} />
+                      <>
+                        {(!loadedModels[project.id] || !hoveredProject === project.id) && project.imagePath && (
+                          <Image 
+                            src={project.imagePath}
+                            alt={project.title}
+                            width={300}
+                            height={300}
+                            className="thumbnail-image"
+                          />
+                        )}
+                        <div className={`model-container ${
+                          hoveredProject === project.id || loadedModels[project.id] ? 'visible' : 'hidden'
+                        }`}>
+                          <ModelViewer 
+                            modelPath={project.modelPath} 
+                            isThumb={true}
+                            onLoad={() => handleModelLoad(project.id)} 
+                          />
+                        </div>
+                      </>
                     ) : project.imagePath ? (
                       <Image 
                         src={project.imagePath}
