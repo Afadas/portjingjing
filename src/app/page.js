@@ -80,9 +80,9 @@ export default function Home() {
   const projects = [
     {
       id: 1,
-      title: "Project A",
+      title: "Project A Testing",
       date: "4/5/2025",
-      description: "Short project description",
+      description: "Please wait the model to load. You can still look at the details of the projects.",
       details: "Detailed information about Project A.",
       modelPath: "/models/testcube.gltf",
       videoId: "dQw4w9WgXcQ" // Example YouTube video ID
