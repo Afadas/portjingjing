@@ -124,6 +124,7 @@ export default function Home() {
       description: "Oldschool Brownies project in bussiness innovation class.",
       details: "Oldschool Brownies project in bussiness innovation class. Work on the showing models in modeling & rendering.",
       modelPath: "/models/brownie.gltf",
+      imagePath: "/pictures/bb.png",
       videoId: "Cneeww9tGP8",
     },
     {
