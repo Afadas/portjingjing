@@ -82,7 +82,7 @@ export default function Home() {
       id: 1,
       title: "Project A Testing",
       date: "4/5/2025",
-      description: "Please wait the model to load. You can still look at the details of the projects.",
+      description: "Please wait the models to load. You can still look at the details of the projects.",
       details: "Detailed information about Project A.",
       modelPath: "/models/testcube.gltf",
       videoId: "dQw4w9WgXcQ" // Example YouTube video ID
