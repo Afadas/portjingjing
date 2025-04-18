@@ -78,15 +78,7 @@ export default function Home() {
   };
 
   const projects = [
-    {
-      id: 1,
-      title: "Project A Testing",
-      date: "4/5/2025",
-      description: "Please wait the models to load. You can still look at the details of the projects.",
-      details: "Detailed information about Project A.",
-      modelPath: "/models/testcube.gltf",
-      videoId: "dQw4w9WgXcQ" // Example YouTube video ID
-    },
+
     {
       id: 2,
       title: "Emperor Coleoptera",
@@ -151,6 +143,7 @@ export default function Home() {
       description: "Hatari X Habits workshop.",
       details: "Did not get any reward from the workshop. But I learned a lot from this workshop.",
       modelPath: "/models/hh.gltf",
+      imagePath: "/pictures/habits.png",
       videoId: "uCpIeRvSCWY",
     },
     {
@@ -160,6 +153,7 @@ export default function Home() {
       description: "Smart Toy project from Human Factor class.",
       details: "Cooperate with engineer student. Magnificent experience.",
       modelPath: "/models/car1.gltf",
+      imagePath: "/pictures/car.png",
       videoId: "iTHjsBHwF_0",
     },
     {
@@ -256,36 +250,24 @@ export default function Home() {
               <div className="project-card-content">
                 {(project.modelPath || project.imagePath) && !expandedProject && (
                   <div className="project-thumbnail">
-                    {project.modelPath ? (
-                      <>
-                        {(!loadedModels[project.id] || !hoveredProject === project.id) && project.imagePath && (
-                          <Image 
-                            src={project.imagePath}
-                            alt={project.title}
-                            width={300}
-                            height={300}
-                            className="thumbnail-image"
-                          />
-                        )}
-                        <div className={`model-container ${
-                          hoveredProject === project.id || loadedModels[project.id] ? 'visible' : 'hidden'
-                        }`}>
-                          <ModelViewer 
-                            modelPath={project.modelPath} 
-                            isThumb={true}
-                            onLoad={() => handleModelLoad(project.id)} 
-                          />
-                        </div>
-                      </>
-                    ) : project.imagePath ? (
+                    {project.imagePath && (
                       <Image 
                         src={project.imagePath}
                         alt={project.title}
                         width={300}
                         height={300}
-                        className="thumbnail-image"
+                        className={`thumbnail-image ${hoveredProject === project.id ? 'fade-out' : ''}`}
                       />
-                    ) : null}
+                    )}
+                    {project.modelPath && (
+                      <div className={`model-container ${hoveredProject === project.id ? 'fade-in' : ''}`}>
+                        <ModelViewer 
+                          modelPath={project.modelPath} 
+                          isThumb={true}
+                          onLoad={() => handleModelLoad(project.id)} 
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
                 <h2 className="project-title">{project.title}</h2>
